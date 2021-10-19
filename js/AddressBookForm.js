@@ -72,6 +72,7 @@ const save = (event) => {
     try{
         setaddressBookContactJsonObj();
         setContactData(); 
+        resetForm();
     }
     catch(e){
         return;
@@ -135,4 +136,18 @@ const createContactId = () => {
 
 const getValueById = (value) => {
     return document.querySelector(value).value;
+}
+
+const resetForm = () => {
+    setValue('#name','');
+    setValue('#phone','');
+    setValue('#address','');
+    setValue('#city','');
+    setValue('#state','');
+    setValue('#zip','');
+}
+
+const setValue = (id, value) => {
+    const element = document.querySelector(id);
+    element.value = value;
 }
