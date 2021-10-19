@@ -1,11 +1,12 @@
 body {
-    margin: 0px;
     height: 100%;
+    background: #F7F7F7 0% 0% no-repeat padding-box;
 }
 
 .header {
-    padding: 15px 0;
-    background-color: #ffffff;
+    display: flex;
+    padding: 15px;
+    background-color: #ffffff;  
 }
 
 .header-content {
@@ -33,6 +34,7 @@ body {
 .address-text {
     text-align: left;
     font: normal normal bold 22px/25px Montserrat;
+    text-transform: uppercase;
     letter-spacing: 0px;
     color: #008CFF;
     text-transform: uppercase;
@@ -48,12 +50,10 @@ body {
 /* UC-2 */
 
 .form-content {
-    background: #f7f7f7 0% 0% no-repeat padding-box;
+    margin-top: 3%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 0px solid green;
-    opacity: 1;
+    flex-direction: row;
+    justify-content: center ;
 }
 
 .form {
