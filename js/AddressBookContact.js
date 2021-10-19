@@ -1,59 +1,49 @@
-class AddressBook{
-    get fullName() {
-        return this._fullName;
+class AddressBookContact{
+    id;
+    get name() {return this._name; }
+    set name(name){
+        let nameRegex = RegExp('^[A-Z][a-zA-Z]{2,}([ ][A-Z][a-zA-Z]*)?$');
+        if(nameRegex.test(name)) 
+            this._name = name;
+        else throw "Name is Incorrect";
     }
-    set fullName(fullName) {
-        let fullNameRegex = RegExp(/^[A-Z][a-z]{2,}/);
-        if (fullNamePattern.test(fullName)) {
-            this._fullName = fullName;
-        } else
-            throw 'Invalid FullName !';
-    }
-    get address() {
-        return this._address;
-    }
+
+    get address() { return this._address; }
     set address(address) {
-        let words = address.split(" ");
-        let addressPattern = RegExp('([A-Z a-z 0-9]{3,})+');
-        for (const word of words) {
-            if (!addressPattern.test(word))
-                throw 'Invalid Address !';
-        }
+        let addressRegex = RegExp('[a-zA-Z]{3,}(([ ][a-zA-Z]{3,})+)');
+        if(addressRegex.test(address))
         this._address = address;
+        else throw "Address is Incorrect";
     }
-    get city() {
-        return this._city;
+
+    get phoneNumber() { return this._phoneNumber; }
+    set phoneNumber(phoneNumber) {
+        let phoneNumberRegex = RegExp('^(([+]?[1-9][0-9])?)([6-9][0-9]{9})$');
+        if(phoneNumberRegex.test(phoneNumber))
+            this._phoneNumber = phoneNumber;
+        else throw "Phone number is incorrect";
     }
+    
+    get city() { return this._city; }
     set city(city) {
         this._city = city;
     }
-    get state() {
-        return this._state;
-    }
+
+    get state() { return this._state; }
     set state(state) {
         this._state = state;
     }
-    get zip() {
-        return this._zip;
-    }
+
+    get zip() { return this._zip; }
     set zip(zip) {
-        this._zip = zip;
-    }
-    get phoneNumber() {
-        return this._phoneNumber;
-    }
-    set phoneNumber(phoneNumber) {
-        let phPattern = RegExp('((^\\+? )(([0-9]{2,3})(\\s))?)' + '[0-9]{13}$');
-        if (phPattern.test(phoneNumber)) {
-            this._phoneNumber = phoneNumber;
-        } else
-            throw 'Invalid Phone Number !';
+        let zipRegex = RegExp('(^[0-9]{3})([ ]?)([0-9]{3}$)')
+        if(zipRegex.test(zip))
+            this._zip = zip;
+        else throw "Zip Code is wrong";
     }
 
-    //Methods
     toString() {
-        return '[ FullName : ' + this._fullName + ' Address : ' +
-            this.address + ' City : ' + this._city + ' State : ' + this.state + ' Zip : ' + this.zip +
-            ' Phone Number : ' + this.phoneNumber + ' ]';
+        return "Name: "+ this._name+", PhoneNumber: "+ this._phoneNumber+ ", Address: "+ this._address+", City: "+ this._city + ", State: "+ this._state + 
+                ", Zip Code: "+ this._zip;
     }
 }
