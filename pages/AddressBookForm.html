@@ -22,7 +22,6 @@
     </header>
 
     <div class="form-content">
-        <!--UC 2-->
         <form class="form" action="#" onsubmit="save(event)" onreset="resetForm()">
             <div class="form-head">
                 <div class="header-text">Person Address Form </div>
@@ -30,26 +29,25 @@
                     <a href="/pages/home.html"><img class="cancel-img" src="/assets/cancel.jpg" alt="Cancel Icon"></a>
                 </div>
             </div>
-            <!-- UC 3 -->
-            <div class="row-content">
-                <label for="fullName" class="label text">Full Name</label>
-                <div class="error-div">
-                    <input type="text" class="input" id="fullName" name="fullName" required>
-                    <error-output class="text-error" for="text"></error-output>
+            <div class= "row-content">
+                <label class = "label text" for="name">Full name</label>
+                <div class="input-error">
+                    <input class="input" type="text" id="name" name ="name" placeholder="Your name.." autocomplete="off" required>
+                    <error-output class ="text-error" for="text"></error-output>
                 </div>
             </div>
-            <div class="row-content">
-                <label for="tel" class="label text">Phone Number</label>
-                <div class="error-div">
-                    <input type="tel" id="tel" name="tel" class="input" required>
-                    <error-output class="mobno-error" for="tel"></error-output>
+            <div class= "row-content">
+                <label class = "label text" for="phone">phone number</label>
+                <div class="input-error">
+                    <input class="input" type="text" id="phone" name ="phone" placeholder="Enter phone number" autocomplete="off" required>
+                    <error-output class ="phone-error" for="phone"></error-output>
                 </div>
             </div>
-            <div class="row-content">
-                <label for="address" class="label text">Address</label>
-                <div class="error-div">
-                    <textarea class="input text" name="address" id="address" style="height: 104px;" required></textarea>
-                    <error-output class="address-error" for="address"></error-output>
+            <div class= "row-content">
+                <label class = "label text" for="address">address</label>
+                <div class="input-error">
+                    <textarea class="input text-area" id="address" name ="address" placeholder="" style="height: 100px;" autocomplete="off" required></textarea>
+                    <error-output class ="address-error" for="address"></error-output>
                 </div>
             </div>
             <div class="select-items">
@@ -95,7 +93,9 @@
             </div>
         </form>
     </div>
-    <script src="../js/AddressBook.js"></script>
+    <script defer src="../js/AddressBookContact.js"></script>
+    <script defer src="../js/AddressBookForm.js"></script>
+    <script defer src="../js/utility.js"></script>
 </body>
 
 </html>
