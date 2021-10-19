@@ -1,48 +1,137 @@
-window.addEventListener('DOMContentLoaded', (event) => {
-    const fullName = document.querySelector('#fullName');
-    fullName.addEventListener('input', function() {
-        if (fullName.value.length == 0) {
-            setTextValue('.text-error', "");
-            return
+let addressBookContactJsonObj = {};
+
+window.addEventListener('DOMContentLoaded', () =>{
+    const name = document.querySelector('#name');
+    const textError = document.querySelector('.text-error');
+    name.addEventListener('input', function() {
+        if(name.value.length == 0){
+            textError.textContent = "";
+            return;
         }
-        try {
-            checkFullName(fullName.value)
-            setTextValue('.text-error', "");
-        } catch (e) {
-            setTextValue('.text-error', e);
+        try{
+            (new AddressBookContact()).name = name.value;
+            textError.textContent = "";
+        } 
+        catch(e) {
+            textError.textContent = e;
         }
     });
 
-    const phoneNo = document.querySelector('#tel');
-    phoneNo.addEventListener('input', function() {
-        if (phoneNo.value.length == 0) {
-            setTextValue('.mobno-error', "");
+    const phone = document.querySelector('#phone');
+    const phoneError = document.querySelector('.phone-error');
+    phone.addEventListener('input', function() {
+        if(phone.value.length == 0){
+            phoneError.textContent = "";
             return;
         }
-        try {
-            checkPhoneNo(phoneNo.value);
-            setTextValue('.mobno-error', "");
-        } catch (e) {
-            setTextValue('.mobno-error', e);
+        try{
+            (new AddressBookContact()).phoneNumber = phone.value;
+            phoneError.textContent = "";
+        } 
+        catch(e) {
+            phoneError.textContent = e;
         }
     });
 
     const address = document.querySelector('#address');
+    const addressError = document.querySelector('.address-error');
     address.addEventListener('input', function() {
-        if (address.value.length == 0) {
-            setTextValue('.address-error', "");
+        if(address.value.length == 0){
+            addressError.textContent = "";
             return;
         }
-        try {
-            checkAddress(address.value);
-            setTextValue('.address-error', "");
-        } catch (e) {
-            setTextValue('.address-error', e);
+        try{
+            (new AddressBookContact()).address = address.value;
+            addressError.textContent = "";
+        } 
+        catch(e) {
+            addressError.textContent = e;
         }
     });
-    
-    const setTextValue = (id, value) => {
-        const element = document.querySelector(id);
-        element.textContent = value;
-    }
+
+    const zip = document.querySelector('#zip');
+    const zipError = document.querySelector('.zip-error');
+    zip.addEventListener('input', function() {
+        if(zip.value.length == 0){
+            zipError.textContent = "";
+            return;
+        }
+        try{
+            (new AddressBookContact()).zip = zip.value;
+            zipError.textContent = "";
+        } 
+        catch(e) {
+            zipError.textContent = e;
+        }
+    });
 });
+
+const save = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    try{
+        setaddressBookContactJsonObj();
+        setContactData(); 
+    }
+    catch(e){
+        return;
+    }
+}
+
+const setaddressBookContactJsonObj = () => {
+    addressBookContactJsonObj.id = createContactId();
+    addressBookContactJsonObj._name = getValueById('#name');
+    addressBookContactJsonObj._phoneNumber = getValueById('#phone');
+    addressBookContactJsonObj._address = getValueById('#address');
+    addressBookContactJsonObj._city = getValueById('#city');
+    addressBookContactJsonObj._state = getValueById('#state');
+    addressBookContactJsonObj._zip = getValueById('#zip');
+}
+
+const setContactData = () => {
+    let contact = new Contact();
+    contact.id = addressBookContactJsonObj.id;
+    const textError = document.querySelector('.text-error');
+    try{
+        contact._name = addressBookContactJsonObj._name;
+    }
+    catch(e){
+        textError.textContent = e;
+        throw e;
+    }
+    const phoneError = document.querySelector('.phone-error');
+    try{
+        contact._phoneNumber = addressBookContactJsonObj._phoneNumber;
+    }
+    catch(e){
+        phoneError.textContent = e;
+        throw e;
+    }
+    const addressError = document.querySelector('.address-error');
+    try{
+        contact._address = addressBookContactJsonObj._address;
+    }
+    catch(e){
+        addressError.textContent = e;
+        throw e;
+    }
+    contact._city = addressBookContactJsonObj._city;
+    contact._state = addressBookContactJsonObj._state;
+    const zipError = document.querySelector('.zip-error');
+    try{
+        contact._zip = addressBookContactJsonObj._zip;
+    }
+    catch(e){
+        zipError.textContent = e;
+        throw e;
+    }
+    alert(contact.toString());
+}
+
+const createContactId = () => {
+    return new Date().getTime();
+}
+
+const getValueById = (value) => {
+    return document.querySelector(value).value;
+}
