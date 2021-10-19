@@ -81,13 +81,16 @@
                     </select>
                 </div>
                 <div name="row-content">
-                    <label for="zip" class="label text">Zip Code</label>
-                    <input class="input" type="tel" id="zip" name="zip" required>
+                    <label class = "label text" for="zip">zip code</label>
+                    <div class="input-error">
+                        <input class="input" type="number" id="zip" name ="zip" autocomplete="off" required>
+                        <error-output class ="zip-error" for="zip"></error-output>
+                    </div>
                 </div>
             </div>
             <div class="buttonParent">
                 <div class="submit-reset">
-                    <button type="submit" class="button submitButton">Add</button>
+                    <button type="submit" class="button submitButton" id="submitButton">Add</button>
                     <button type="reset" class="resetButton button">Reset</button>
                 </div>
             </div>
