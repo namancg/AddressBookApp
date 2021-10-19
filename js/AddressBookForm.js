@@ -89,7 +89,7 @@ const setaddressBookContactJsonObj = () => {
 }
 
 const setContactData = () => {
-    let contact = new Contact();
+    let contact = new AddressBookContact();
     contact.id = addressBookContactJsonObj.id;
     const textError = document.querySelector('.text-error');
     try{
@@ -126,6 +126,7 @@ const setContactData = () => {
         throw e;
     }
     alert(contact.toString());
+    localStorage.setItem("AddressBookList",JSON.stringify(addressBookContactJsonObj))
 }
 
 const createContactId = () => {
