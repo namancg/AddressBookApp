@@ -1,10 +1,11 @@
+
 let addressBookContactJsonObj = {};
 let isUpdate = false;
 window.addEventListener('DOMContentLoaded', () => {
 
     const name = document.getElementById('name');
     const textError = document.querySelector('.text-error');
-    name.addEventListener('input', function() {
+    name.addEventListener('input', function () {
         if (name.value.length == 0) {
             textError.textContent = "";
             return;
@@ -30,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
             phoneError.textContent = "";
         }
         catch (e) {
-            phoneError.textContent = e;<img id="${contact.id}" class="edit-icon" alt="edit" onclick="update(this)" src="../assets/icons/create-black-18dp.svg"></img>
+            phoneError.textContent = e; <img id="${contact.id}" class="edit-icon" alt="edit" onclick="update(this)" src="../assets/icons/create-black-18dp.svg"></img>
         }
     });
 
@@ -71,15 +72,21 @@ window.addEventListener('DOMContentLoaded', () => {
 const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
+    try {
         setaddressBookContactJsonObj();
         createAndUpdateStorage();
         resetForm();
-    
-    
+        window.location.replace(site_properties.home_page)
+    }
+    catch (e) {
+        return;
+    }
+
+
 }
 
 const setaddressBookContactJsonObj = () => {
-    if(!isUpdate) addressBookContactJsonObj.id = createContactId();
+    if (!isUpdate) addressBookContactJsonObj.id = createContactId();
     addressBookContactJsonObj._name = getValueById('#name');
     addressBookContactJsonObj._phoneNumber = getValueById('#phone');
     addressBookContactJsonObj._address = getValueById('#address');
@@ -90,19 +97,19 @@ const setaddressBookContactJsonObj = () => {
 
 const createAndUpdateStorage = () => {
     let addressBookContactList = JSON.parse(localStorage.getItem("AddressBookList"));
-  
+
     if (addressBookContactList) {
-      if (isUpdate) {
-        const index = addressBookContactList.map((data) => data.id).indexOf(addressBookContactJsonObj.id);
-        addressBookContactList.splice(index, 1, addressBookContactJsonObj);
-      } else {
-        addressBookContactList.push(addressBookContactJsonObj);
-      }
+        if (isUpdate) {
+            const index = addressBookContactList.map((data) => data.id).indexOf(addressBookContactJsonObj.id);
+            addressBookContactList.splice(index, 1, addressBookContactJsonObj);
+        } else {
+            addressBookContactList.push(addressBookContactJsonObj);
+        }
     } else {
         addressBookContactList = [addressBookContactJsonObj];
     }
     localStorage.setItem("AddressBookList", JSON.stringify(addressBookContactList));
-  };
+};
 
 
 const createContactId = () => {
@@ -110,7 +117,7 @@ const createContactId = () => {
     contactID = !contactID ? "1" : (parseInt(contactID) + 1).toString();
     localStorage.setItem("ContactID", contactID);
     return contactID;
-}   
+}
 
 const getValueById = (value) => {
     return document.querySelector(value).value;
@@ -135,13 +142,13 @@ const checkForUpdate = () => {
     if (!isUpdate) return;
     addressBookContactJsonObj = JSON.parse(contactJson);
     setForm();
-  };
+};
 
-  const setForm = () => {
+const setForm = () => {
     setValue("#name", addressBookContactJsonObj._name);
     setValue("#phone", addressBookContactJsonObj._phoneNumber);
     setValue("#address", addressBookContactJsonObj._address);
     setValue("#city", addressBookContactJsonObj._city);
     setValue("#state", addressBookContactJsonObj._state);
     setValue("#zip", addressBookContactJsonObj._zip);
-  };
+};
