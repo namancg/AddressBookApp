@@ -46,3 +46,17 @@ const createInnerHtml = () => {
     }
     document.querySelector("#table-display").innerHTML = innerHtml;
 };
+
+const remove = (node) => {
+    let contactData = contactList.find(
+      (contactPerson) => contactPerson.id == node.id
+    );
+    if (!contactData) return;
+    const index = contactList
+      .map((contactPerson) => contactPerson.id)
+      .indexOf(contactData.id);
+    contactList.splice(index, 1);
+    localStorage.setItem("AddressBookList", JSON.stringify(contactList));
+    document.querySelector(".addr-count").textContent = contactList.length;
+    createInnerHtml();
+  };
