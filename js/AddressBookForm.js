@@ -130,7 +130,7 @@ const setContactData = () => {
     return contact;
 }
 const createAndUpdateStorage = () => {
-    let addressBookContactList = JSON.parse(localStorage.getItem("AddressBookContactList"));
+    let addressBookContactList = JSON.parse(localStorage.getItem("AddressBookList"));
     if (addressBookContactList) {
         addressBookContactList.push(setContactData());
     }
