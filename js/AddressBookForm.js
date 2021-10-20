@@ -1,9 +1,10 @@
 let addressBookContactJsonObj = {};
-
+let isUpdate = false;
 window.addEventListener('DOMContentLoaded', () => {
-    const name = document.querySelector('#name');
+
+    var name = document.getElementById('name');
     const textError = document.querySelector('.text-error');
-    name.addEventListener('input', function () {
+    name.addEventListener('input', function() {
         if (name.value.length == 0) {
             textError.textContent = "";
             return;
@@ -64,23 +65,22 @@ window.addEventListener('DOMContentLoaded', () => {
             zipError.textContent = e;
         }
     });
+    checkForUpdate();
 });
 
 const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    try {
         setaddressBookContactJsonObj();
+        console.log(addressBookContactJsonObj)
         createAndUpdateStorage();
         resetForm();
-    }
-    catch (e) {
-        return;
-    }
+    
+    
 }
 
 const setaddressBookContactJsonObj = () => {
-    addressBookContactJsonObj.id = createContactId();
+    if(!isUpdate) addressBookContactJsonObj.id = new Date().getTime();
     addressBookContactJsonObj._name = getValueById('#name');
     addressBookContactJsonObj._phoneNumber = getValueById('#phone');
     addressBookContactJsonObj._address = getValueById('#address');
@@ -131,13 +131,25 @@ const setContactData = () => {
 }
 const createAndUpdateStorage = () => {
     let addressBookContactList = JSON.parse(localStorage.getItem("AddressBookList"));
+  
     if (addressBookContactList) {
-        addressBookContactList.push(setContactData());
-    }
-    else {
-        addressBookContactList = [setContactData()];
+      if (isUpdate) {
+        const index = addressBookContactList.map((data) => data.id).indexOf(addressBookContactJsonObj.id);
+        addressBookContactList.splice(index, 1, addressBookContactJsonObj);
+      } else {
+        addressBookContactList.push(addressBookContactJsonObj);
+      }
+    } else {
+        addressBookContactList = [addressBookContactJsonObj];
     }
     localStorage.setItem("AddressBookList", JSON.stringify(addressBookContactList));
+  };
+const createAddressBookContact = (id) => {
+    let contact = new AddressBookContact();
+    if (!id) contact.id = createContactId();
+    else contact.id = id;
+    setContactData(contact);
+    return contact;
 }
 
 const createContactId = () => {
@@ -145,7 +157,7 @@ const createContactId = () => {
     contactID = !contactID ? "1" : (parseInt(contactID) + 1).toString();
     localStorage.setItem("ContactID", contactID);
     return contactID;
-}
+}   
 
 const getValueById = (value) => {
     return document.querySelector(value).value;
@@ -164,3 +176,19 @@ const setValue = (id, value) => {
     const element = document.querySelector(id);
     element.value = value;
 }
+const checkForUpdate = () => {
+    const contactJson = localStorage.getItem("editContact");
+    isUpdate = contactJson ? true : false;
+    if (!isUpdate) return;
+    addressBookContactJsonObj = JSON.parse(contactJson);
+    setForm();
+  };
+
+  const setForm = () => {
+    setValue("#name", addressBookContactJsonObj._name);
+    setValue("#phone", addressBookContactJsonObj._phoneNumber);
+    setValue("#address", addressBookContactJsonObj._address);
+    setValue("#city", addressBookContactJsonObj._city);
+    setValue("#state", addressBookContactJsonObj._state);
+    setValue("#zip", addressBookContactJsonObj._zip);
+  };
