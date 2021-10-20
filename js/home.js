@@ -7,8 +7,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 const getContactDataFromStorage = () => {
-    return localStorage.getItem("ContactList")
-        ? JSON.parse(localStorage.getItem("ContactList"))
+    return localStorage.getItem("AddressBookList")
+        ? JSON.parse(localStorage.getItem("AddressBookList"))
         : [];
 };
 const createInnerHtml = () => {
@@ -30,15 +30,15 @@ const createInnerHtml = () => {
         for (const contactData of contactList) {
             innerHtml = `${innerHtml}
           <tr>
-          <td>${contactData.name}</td>
-          <td>${contactData.address}</td>
-          <td>${contactData.city}</td>
-          <td>${contactData.state}</td>
-          <td>${contactData.pincode}</td>
-          <td>${contactData.phone}</td>
+          <td>${contactData._name}</td>
+          <td>${contactData._address}</td>
+          <td>${contactData._city}</td>
+          <td>${contactData._state}</td>
+          <td>${contactData._zip}</td>
+          <td>${contactData._phoneNumber}</td>
           <td>
-          <img id="${contactData.id}" onclick="remove(this)" alt="delete" src="../assets/delete.svg">
-          <img id="${contactData.id}" alt="edit" onclick="update(this)" src="../assets/edit.svg">
+          <img id="${contactData.id}" onclick="remove(this)" alt="delete" src="../assets/icons/delete-black-18dp.svg">
+          <img id="${contactData.id}" alt="edit" onclick="update(this)" src="../assets/icons/create-black-18dp.svg">
           </td>
           </tr>
           `;
