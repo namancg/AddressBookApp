@@ -49,14 +49,21 @@ const createInnerHtml = () => {
 
 const remove = (node) => {
     let contactData = contactList.find(
-      (contactPerson) => contactPerson.id == node.id
+        (contactPerson) => contactPerson.id == node.id
     );
     if (!contactData) return;
     const index = contactList
-      .map((contactPerson) => contactPerson.id)
-      .indexOf(contactData.id);
+        .map((contactPerson) => contactPerson.id)
+        .indexOf(contactData.id);
     contactList.splice(index, 1);
     localStorage.setItem("AddressBookList", JSON.stringify(contactList));
     document.querySelector(".addr-count").textContent = contactList.length;
     createInnerHtml();
-  };
+};
+
+const update = (node) => {
+    let contactData = contactList.find((contactData) => contactData.id == node.id);
+    if (!contactData) return;
+    localStorage.setItem("editContact", JSON.stringify(contactData));
+    window.location.replace(site_properties.add_contact_page);
+};
