@@ -1,31 +1,22 @@
 {
-    "AddressDB": [
-      {
-        "id": 1,
-        "name": "Naman",
-        "address": "Basavanagudi East",
-        "city": "Bangalore",
-        "state": "Karnataka",
-        "phone": "9538169967",
-        "pincode": "560004"
-      },
-      {
-        "id": 2,
-        "name": "Aashvi",
-        "address": "Kathriguppe Basavanagudi",
-        "city": "Bangalore",
-        "state": "Karnataka",
-        "phone": "9958158481",
-        "pincode": "560070"
-      },
-      {
-        "id": 3,
-        "name": "Sanjit K",
-        "address": "ISRO Layout",
-        "city": "Bangalore",
-        "state": "Karnataka",
-        "phone": "7259332866",
-        "pincode": "560087"
-      }
-    ]
-  }
+  "AddressDB": [
+    {
+      "id": "55",
+      "name": "Sanjit K",
+      "phoneNumber": "7259332866",
+      "address": "ksjdc csdljn",
+      "city": "Mysore",
+      "state": "Lakshadweep",
+      "zip": "560004"
+    },
+    {
+      "id": "56",
+      "name": "Aashvi",
+      "phoneNumber": "9539695999",
+      "address": "ankscnskjd ajcsn",
+      "city": "Mysore",
+      "state": "Lakshadweep",
+      "zip": "560004"
+    }
+  ]
+}
