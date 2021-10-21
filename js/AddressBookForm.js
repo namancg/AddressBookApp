@@ -1,6 +1,6 @@
 
 let addressBookContactJsonObj = {};
-let isUpdate = false;
+let isUpdate;
 window.addEventListener('DOMContentLoaded', () => {
 
     const name = document.getElementById('name');
@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
             phoneError.textContent = "";
         }
         catch (e) {
-            phoneError.textContent = e; <img id="${contact.id}" class="edit-icon" alt="edit" onclick="update(this)" src="../assets/icons/create-black-18dp.svg"></img>
+            phoneError.textContent = e; 
         }
     });
 
@@ -72,27 +72,27 @@ window.addEventListener('DOMContentLoaded', () => {
 const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    try {
         setaddressBookContactJsonObj();
-        createAndUpdateStorage();
-        resetForm();
-        window.location.replace(site_properties.home_page)
-    }
-    catch (e) {
-        return;
-    }
+        if(site_properties.use_local_storage.match(true)){
+            createAndUpdateStorage();
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        }
+        else {
+            createOrUpdateAddressBookDB();
+        }
 
 
 }
 
 const setaddressBookContactJsonObj = () => {
     if (!isUpdate) addressBookContactJsonObj.id = createContactId();
-    addressBookContactJsonObj._name = getValueById('#name');
-    addressBookContactJsonObj._phoneNumber = getValueById('#phone');
-    addressBookContactJsonObj._address = getValueById('#address');
-    addressBookContactJsonObj._city = getValueById('#city');
-    addressBookContactJsonObj._state = getValueById('#state');
-    addressBookContactJsonObj._zip = getValueById('#zip');
+    addressBookContactJsonObj.name = getValueById('#name');
+    addressBookContactJsonObj.phoneNumber = getValueById('#phone');
+    addressBookContactJsonObj.address = getValueById('#address');
+    addressBookContactJsonObj.city = getValueById('#city');
+    addressBookContactJsonObj.state = getValueById('#state');
+    addressBookContactJsonObj.zip = getValueById('#zip');
 }
 
 const createAndUpdateStorage = () => {
@@ -112,6 +112,33 @@ const createAndUpdateStorage = () => {
 };
 
 
+const createOrUpdateAddressBookDB = () => {
+    postUrl = site_properties.server_url;
+    methodType = "POST";
+    if(isUpdate){
+        methodType="PUT";
+        postUrl = postUrl + addressBookContactJsonObj.id.toString();
+    }
+    makeServiceCall(methodType, postUrl, true, addressBookContactJsonObj)
+        .then(responseText => {
+            resetForm();
+            window.location.replace(site_properties.home_page);
+        })
+        .catch(error => {
+            throw error;
+        });
+}
+function checkform()
+{
+    let formElements = document.getElementById("myform").elements;
+    let cansubmit = true;
+    for (let i = 0; i < formElements.length-2; i++) {
+        if (formElements[i].value.length == 0) cansubmit = false;
+    }
+    if (cansubmit) {
+        document.getElementById('submitButton').disabled = false;
+    }
+}
 const createContactId = () => {
     let contactID = localStorage.getItem("ContactID");
     contactID = !contactID ? "1" : (parseInt(contactID) + 1).toString();
@@ -138,6 +165,7 @@ const setValue = (id, value) => {
 }
 const checkForUpdate = () => {
     let contactJson = localStorage.getItem("editContact");
+    console.log(contactJson);   
     isUpdate = contactJson ? true : false;
     if (!isUpdate) return;
     addressBookContactJsonObj = JSON.parse(contactJson);
@@ -145,10 +173,10 @@ const checkForUpdate = () => {
 };
 
 const setForm = () => {
-    setValue("#name", addressBookContactJsonObj._name);
-    setValue("#phone", addressBookContactJsonObj._phoneNumber);
-    setValue("#address", addressBookContactJsonObj._address);
-    setValue("#city", addressBookContactJsonObj._city);
-    setValue("#state", addressBookContactJsonObj._state);
-    setValue("#zip", addressBookContactJsonObj._zip);
+    setValue("#name", addressBookContactJsonObj.name);
+    setValue("#phone", addressBookContactJsonObj.phoneNumber);
+    setValue("#address", addressBookContactJsonObj.address);
+    setValue("#city", addressBookContactJsonObj.city);
+    setValue("#state", addressBookContactJsonObj.state);
+    setValue("#zip", addressBookContactJsonObj.zip);
 };
