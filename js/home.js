@@ -24,7 +24,6 @@ const getContactDataFromServer = () => {
   makeServiceCall("GET", site_properties.server_url, true)
     .then((responseText) => {
       contactList = JSON.parse(responseText);
-      //console.log(contactList)
       processContactDataResponse();
     })
     .catch((error) => {
@@ -33,6 +32,8 @@ const getContactDataFromServer = () => {
       processContactDataResponse();
     });
 };
+
+
 const remove = (node) => {
   let contactData = contactList.find(
     (contactPerson) => contactPerson.id == node.id
@@ -42,22 +43,22 @@ const remove = (node) => {
     .map((contactPerson) => contactPerson.id)
     .indexOf(contactData.id);
   contactList.splice(index, 1);
-  if (site_properties.use_local_storage) {
-    localStorage.setItem("AddressBookList", JSON.stringify(contactList));
-    document.querySelector(".addr-count").textContent = contactList.length;
+  if(site_properties.use_local_storage.match('true')){
+    localStorage.setItem("AddressBookContactList",JSON.stringify(addressBookContactList));
     createInnerHtml();
-  } else {
-    const deleteURL = site_properties.server_url + contactData.id.toString();
-    makeServiceCall("DELETE", deleteURL, false)
-      .then((responseText) => {
-        document.querySelector(".addr-count").textContent = contactList.length;
-        createInnerHtml();
-      })
-      .catch((error) => {
-        console.log("DELETE error status: " + JSON.stringify(error));
-      });
-  }
-};
+}   
+else{
+    const deleteUrl = site_properties.server_url + contactData.id.toString();
+    makeServiceCall("DELETE",deleteUrl,false)
+        .then(responseText => {
+            createInnerHtml();
+        })
+        .catch(error =>{
+            console.log("DELETE Error status: "+ JSON.stringify(error));
+        });
+}
+}
+
 
 const update = (node) => {
   let contactData = contactList.find((data) => data.id == node.id);
@@ -90,11 +91,11 @@ const createInnerHtml = () => {
           <td>${contactData.address}</td>
           <td>${contactData.city}</td>
           <td>${contactData.state}</td>
-          <td>${contactData.pincode}</td>
-          <td>${contactData.phone}</td>
+          <td>${contactData.zip}</td>
+          <td>${contactData.phoneNumber}</td>
           <td>
-          <img id="${contactData.id}" onclick="remove(this)" alt="delete" src="../assets/delete.svg">
-          <img id="${contactData.id}" alt="edit" onclick="update(this)" src="../assets/edit.svg">
+          <img id="${contactData.id}" onclick="remove(this)" alt="delete" src="../assets/icons/delete-black-18dp.svg">
+          <img id="${contactData.id}" alt="edit" onclick="update(this)" src="../assets/icons/create-black-18dp.svg">
           </td>
           </tr>
           `;
