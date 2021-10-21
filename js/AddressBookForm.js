@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', () => {
             phoneError.textContent = "";
         }
         catch (e) {
-            phoneError.textContent = e; 
+            phoneError.textContent = e;
         }
     });
 
@@ -72,15 +72,15 @@ window.addEventListener('DOMContentLoaded', () => {
 const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
-        setaddressBookContactJsonObj();
-        if(site_properties.use_local_storage.match(true)){
-            createAndUpdateStorage();
-            resetForm();
-            window.location.replace(site_properties.home_page);
-        }
-        else {
-            createOrUpdateAddressBookDB();
-        }
+    setaddressBookContactJsonObj();
+    if (site_properties.use_local_storage.match(true)) {
+        createAndUpdateStorage();
+        resetForm();
+        window.location.replace(site_properties.home_page);
+    }
+    else {
+        createOrUpdateAddressBookDB();
+    }
 
 
 }
@@ -115,8 +115,8 @@ const createAndUpdateStorage = () => {
 const createOrUpdateAddressBookDB = () => {
     postUrl = site_properties.server_url;
     methodType = "POST";
-    if(isUpdate){
-        methodType="PUT";
+    if (isUpdate) {
+        methodType = "PUT";
         postUrl = postUrl + addressBookContactJsonObj.id.toString();
     }
     makeServiceCall(methodType, postUrl, true, addressBookContactJsonObj)
@@ -128,11 +128,10 @@ const createOrUpdateAddressBookDB = () => {
             throw error;
         });
 }
-function checkform()
-{
+function checkform() {
     let formElements = document.getElementById("myform").elements;
     let cansubmit = true;
-    for (let i = 0; i < formElements.length-2; i++) {
+    for (let i = 0; i < formElements.length - 2; i++) {
         if (formElements[i].value.length == 0) cansubmit = false;
     }
     if (cansubmit) {
@@ -165,7 +164,7 @@ const setValue = (id, value) => {
 }
 const checkForUpdate = () => {
     let contactJson = localStorage.getItem("editContact");
-    console.log(contactJson);   
+    console.log(contactJson);
     isUpdate = contactJson ? true : false;
     if (!isUpdate) return;
     addressBookContactJsonObj = JSON.parse(contactJson);
