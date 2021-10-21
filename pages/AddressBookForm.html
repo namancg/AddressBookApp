@@ -29,32 +29,33 @@
                     <a href="/pages/home.html"><img class="cancel-img" src="/assets/cancel.jpg" alt="Cancel Icon"></a>
                 </div>
             </div>
-            <div class= "row-content">
-                <label class = "label text" for="name">Full name</label>
+            <div class="row-content">
+                <label class="label text" for="name">Full name</label>
                 <div class="input-error">
-                    <input class="input" type="text" id="name" name ="name" autocomplete="off" required>
-                    <error-output class ="text-error" for="text"></error-output>
+                    <input class="input" type="text" id="name" name="name" autocomplete="off" required>
+                    <error-output class="text-error" for="text"></error-output>
                 </div>
             </div>
-            <div class= "row-content">
-                <label class = "label text" for="phone">phone number</label>
+            <div class="row-content">
+                <label class="label text" for="phone">phone number</label>
                 <div class="input-error">
-                    <input class="input" type="text" id="phone" name ="phone" autocomplete="off" required>
-                    <error-output class ="phone-error" for="phone"></error-output>
+                    <input class="input" type="text" id="phone" name="phone" autocomplete="off" required>
+                    <error-output class="phone-error" for="phone"></error-output>
                 </div>
             </div>
-            <div class= "row-content">
-                <label class = "label text" for="address">address</label>
+            <div class="row-content">
+                <label class="label text" for="address">address</label>
                 <div class="input-error">
-                    <textarea class="input text-area" id="address" name ="address" placeholder="" style="height: 100px;" autocomplete="off" required></textarea>
-                    <error-output class ="address-error" for="address"></error-output>
+                    <textarea class="input text-area" id="address" name="address" placeholder="" style="height: 100px;"
+                        autocomplete="off" required></textarea>
+                    <error-output class="address-error" for="address"></error-output>
                 </div>
             </div>
             <div class="select-items">
                 <div name="citySelect" id="citySelect" class="selectDiv">
                     <label for="city" class="label text">City</label>
                     <select name="city" id="city">
-                        <option value="">Select City</option>
+                        <option value=""disabled selected>Select City</option>
                         <option value="Bangalore">Bangalore</option>
                         <option value="Mysore">Mysore</option>
                         <option value="Leh">Leh</option>
@@ -67,24 +68,24 @@
                 <div name="stateSelect" id="stateSelect" class="selectDiv">
                     <label for="state" class="label text">State</label>
                     <select name="state" id="state">
-                        <option value="">Select State</option>
-                    <option value="Delhi">Delhi</option>
-                    <option value="Lakshadweep">Lakshadweep</option>
-                    <option value="Puducherry">Puducherry</option>
-                    <option value="Goa">Goa</option>
-                    <option value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
+                        <option value="" disabled selected>Select State</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Puducherry">Puducherry</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
                     </select>
                 </div>
                 <div name="row-content">
-                    <label class = "label text" for="zip">zip code</label>
+                    <label class="label text" for="zip">zip code</label>
                     <div class="input-error">
-                        <input class="input" type="number" id="zip" name ="zip" autocomplete="off" required>
-                        <error-output class ="zip-error" for="zip"></error-output>
+                        <input class="input" type="number" id="zip" name="zip" autocomplete="off" required>
+                        <error-output class="zip-error" for="zip"></error-output>
                     </div>
                 </div>
             </div>
@@ -96,9 +97,13 @@
             </div>
         </form>
     </div>
-    
+
     <script defer src="../js/AddressBookForm.js"></script>
+    <script defer src="../js/utility.js"></script>
+    <script defer src="../js/http_services.js"></script>
+    <script defer src="../js/site_properties.js"></script>
     
+
 </body>
 
 </html>
